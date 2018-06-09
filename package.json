@@ -1,8 +1,15 @@
 {
   "name": "@graham42/prettier-config",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=8"
+  },
   "description": "Opinionated prettier config",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Graham42/prettier-config.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write '**/*.{js,jsx,json,css,scss,less,md,ts,tsx}'"
@@ -15,5 +22,8 @@
   "license": "MIT",
   "devDependencies": {
     "prettier": "^1.13.5"
+  },
+  "peerDependencies": {
+    "prettier": "^1.8.2"
   }
 }
