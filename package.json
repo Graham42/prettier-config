@@ -1,0 +1,19 @@
+{
+  "name": "@graham42/prettier-config",
+  "version": "0.0.1",
+  "description": "Opinionated prettier config",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,jsx,json,css,scss,less,md,ts,tsx}'"
+  },
+  "keywords": [
+    "prettier",
+    "auto-formatter"
+  ],
+  "author": "Graham McGregor",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.13.5"
+  }
+}
