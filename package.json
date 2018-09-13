@@ -22,6 +22,8 @@
   "author": "Graham McGregor",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^8.10.29",
+    "@types/prettier": "^1.13.2",
     "prettier": "^1.13.5"
   },
   "peerDependencies": {
