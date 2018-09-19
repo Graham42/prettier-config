@@ -29,3 +29,12 @@ node_modules/
 # files
 package*.json
 ```
+
+## ES5
+
+If you are writing `es5` code, update your `prettier.config.js` to:
+
+```js
+var config = require("@graham42/prettier-config/es5");
+module.exports = config;
+```
