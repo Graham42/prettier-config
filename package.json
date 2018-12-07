@@ -12,7 +12,7 @@
     "url": "https://github.com/Graham42/prettier-config.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc",
     "format": "prettier --write '**/*.{js,jsx,json,css,scss,less,md,ts,tsx}'"
   },
   "keywords": [
@@ -24,7 +24,8 @@
   "devDependencies": {
     "@types/node": "^8.10.29",
     "@types/prettier": "^1.13.2",
-    "prettier": "^1.13.5"
+    "prettier": "^1.13.5",
+    "typescript": "^3.2.2"
   },
   "peerDependencies": {
     "prettier": "^1.8.2"
