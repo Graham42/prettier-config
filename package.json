@@ -12,7 +12,8 @@
     "url": "https://github.com/Graham42/prettier-config.git"
   },
   "scripts": {
-    "test": "tsc",
+    "lint": "tsc",
+    "test": "bash ./setup.test.sh",
     "format": "prettier --write '**/*.{js,jsx,json,css,scss,less,md,ts,tsx}'"
   },
   "keywords": [
