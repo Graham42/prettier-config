@@ -46,6 +46,7 @@ const PRETTIER_FILE_EXTENSIONS = [
   "scss",
   "graphql",
   "yaml",
+  "yml",
   "json",
   "md",
   "mdx",
