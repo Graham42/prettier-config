@@ -29,7 +29,22 @@ module.exports = {
    *
    * This is a tradeoff because changes will often result in git diffs that
    * have changes across multiple lines. This can be solved by using the
-   * --word-diff option.
+   * word diff feature of git.
+   *
+   * `git diff` supports comparing files line by line or word by word, and also
+   * supports defining what makes a word. We can define every non-space
+   * character as a word so it will ignore all spaces including white-spcae,
+   * tab, line-break and carriage-return.
+   *
+   *    git diff --word-diff-regex=[^[:space:]]
+   *
+   * If you need to use this often it would be worth creating an alias for:
+   *
+   *    git config --global --add alias.paragraph-diff 'diff --word-diff-regex=[^[:space:]]'
+   *
+   * Then you can use it with:
+   *
+   *    git paragraph-diff
    */
   proseWrap: "always",
 };
