@@ -23,12 +23,6 @@ node_modules/
 package*.json
 `,
 };
-Object.keys(CONFIG_FILES).forEach(fileName => {
-  if (fs.existsSync(fileName)) {
-    console.error(`${fileName} already exists. Aborting.`);
-    process.exit(1);
-  }
-});
 Object.entries(CONFIG_FILES).forEach(([fileName, contents]) => {
   fs.writeFileSync(fileName, contents, "utf8");
 });
