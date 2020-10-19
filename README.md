@@ -12,29 +12,8 @@ Run this command to install and configure prettier:
 npx @graham42/prettier-config
 ```
 
-Or, manually add the following config
-
-```js
-// prettier.config.js
-
-var config = require("@graham42/prettier-config");
-module.exports = config;
-```
+or if you are writing `es5` code run:
 
 ```sh
-# .prettierignore
-
-node_modules/
-# `npm install` does its' own formatting of the package.json and package-lock.json
-# files
-package*.json
-```
-
-## ES5
-
-If you are writing `es5` code, update your `prettier.config.js` to:
-
-```js
-var config = require("@graham42/prettier-config/es5");
-module.exports = config;
+npx @graham42/prettier-config es5
 ```
