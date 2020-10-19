@@ -28,17 +28,20 @@ module.exports = {
    * much easier to read if the text is hard wrapped at 80 characters.
    *
    * This is a tradeoff because changes will often result in git diffs that
-   * have changes across multiple lines. This can be solved by using the
-   * word diff feature of git.
+   * have changes across multiple lines. Fortunately GitHub has a great feature
+   * for rendering differences in prose documents:
+   * https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/rendering-differences-in-prose-documents
    *
-   * `git diff` supports comparing files line by line or word by word, and also
-   * supports defining what makes a word. We can define every non-space
-   * character as a word so it will ignore all spaces including white-spcae,
-   * tab, line-break and carriage-return.
+   * You can also view a reasonable diff in the terminal with `--word-diff`.
+   * Or, if you want a more precise terminal diff, `git diff` supports
+   * comparing files line by line or word by word, and also supports defining
+   * what makes a word. We can define every non-space character as a word so it
+   * will ignore all spaces including white-spcae, tab, line-break and
+   * carriage-return.
    *
    *    git diff --word-diff-regex=[^[:space:]]
    *
-   * If you need to use this often it would be worth creating an alias for:
+   * If you want to use this often it would be worth creating an alias for:
    *
    *    git config --global --add alias.paragraph-diff 'diff --word-diff-regex=[^[:space:]]'
    *
