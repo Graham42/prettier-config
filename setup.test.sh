@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -exo pipefail;
+set -euxo pipefail;
 
 ORIG_DIR=$(pwd)
 function finish {
@@ -10,7 +10,7 @@ trap finish EXIT
 
 cd "$(mktemp -d)"
 npm init -y
-npx $ORIG_DIR
+npx "$ORIG_DIR"
 ls -a
 
 echo "'prettier.config.js' should exist"
