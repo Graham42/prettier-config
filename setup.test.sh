@@ -19,8 +19,8 @@ echo "'prettier.config.js' should exist"
 echo "'.prettierignore' should exist"
 [ -e ".prettierignore" ]
 
-echo "fix:format script should exist"
-npm run fix:format
-
 echo "lint:format script should exist"
 npm run lint:format
+
+echo "fix:format script should exist"
+npm run fix:format
