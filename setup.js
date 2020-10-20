@@ -28,7 +28,7 @@ prettierConfigRaw= prettierConfigRaw.replace(/\/\/@ts-check/, '')
 if (cli.flags.es5) {
   prettierConfigRaw=prettierConfigRaw.replace(/trailingComma:\s*['"]all['"]/, `trailingComma: "es5"`)
 }
-prettierConfigRaw = `
+prettierConfigRaw = `\
 // This file and the npm scripts 'fix:format' and 'lint:format' were generated
 // with 'npx @graham42/prettier-config'
 ` + prettierConfigRaw
