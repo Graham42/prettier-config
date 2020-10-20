@@ -15,5 +15,5 @@ npx @graham42/prettier-config
 or if you are writing `es5` code run:
 
 ```sh
-npx @graham42/prettier-config es5
+npx @graham42/prettier-config --es5
 ```

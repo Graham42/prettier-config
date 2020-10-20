@@ -14,7 +14,8 @@
   "scripts": {
     "lint": "tsc",
     "test": "bash ./setup.test.sh",
-    "format": "prettier --write '**/*.{js,jsx,json,css,scss,less,md,ts,tsx}'"
+    "lint:format": "prettier --list-different '**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,md,mdx}' ",
+    "fix:format": "prettier --write '**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,md,mdx}' "
   },
   "keywords": [
     "prettier",
@@ -30,5 +31,8 @@
   },
   "peerDependencies": {
     "prettier": "^2.0.0"
+  },
+  "dependencies": {
+    "meow": "^7.1.1"
   }
 }
