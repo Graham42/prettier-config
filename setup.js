@@ -69,7 +69,7 @@ const targetFilesGlob = `**/*.{${PRETTIER_FILE_EXTENSIONS.join(",")}}`;
 const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
 pkg.scripts = pkg.scripts || {};
 pkg.scripts = migrateFromV1(pkg.scripts)
-pkg.scripts["lint:format"] = `prettier --list-different '${targetFilesGlob}' `;
+pkg.scripts["lint:format"] = `prettier --check '${targetFilesGlob}' `;
 pkg.scripts["fix:format"] = `prettier --write '${targetFilesGlob}' `;
 fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2), "utf8");
 
