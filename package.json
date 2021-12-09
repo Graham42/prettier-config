@@ -12,7 +12,7 @@
     "url": "https://github.com/Graham42/prettier-config.git"
   },
   "scripts": {
-    "lint": "tsc",
+    "check:types": "tsc -p jsconfig.json",
     "test": "bash ./setup.test.sh",
     "lint:format": "prettier --list-different '**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,md,mdx}' ",
     "fix:format": "prettier --write '**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,md,mdx}' "
