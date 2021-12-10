@@ -185,7 +185,7 @@ commit with any formatting changes, to make reviewing easier.
 For the first commit you can run
 
     git add --update # This adds all files that were already tracked by git
-    git add package.json package-lock.json ${CONFIG_FILENAME} .gitignore
+    git add package.json package-lock.json ${CONFIG_FILENAME} .gitignore .vscode
     git commit -m "chore: configure prettier" \\
         -m "Autoformatting makes for an awesome developer experience!"
 
