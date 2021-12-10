@@ -86,9 +86,16 @@ run 'npm init' first.`,
     );
     process.exit(1);
   }
-  let pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+  let pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
 
-  updateConfigV2();
+  if (!fs.existsSync(".gitignore")) {
+    log("No '.gitignore' file found, creating one now...");
+    require("child_process").execSync("npx gitignore@latest node", {
+      stdio: "inherit",
+    });
+  }
+
+  const { needsPrettierIgnore } = updateConfigV2();
   for (let filename of PRETTIER_CONFIG_FILENAMES) {
     if (filename === CONFIG_FILENAME) continue;
     if (fs.existsSync(filename)) {
@@ -125,9 +132,9 @@ configuration block to avoid conflicts.`,
   pkg.scripts = cleanPkgScriptsV2(pkg.scripts);
   // The double quotes are needed for this to work across platforms
   // (looking at you Windows)
-  pkg.scripts[
-    "prettier"
-  ] = `prettier --ignore-path .gitignore  "${targetFilesGlob}"`;
+  pkg.scripts["prettier"] = needsPrettierIgnore
+    ? `prettier "${targetFilesGlob}"`
+    : `prettier --ignore-path .gitignore "${targetFilesGlob}"`;
   pkg.scripts["check:format"] = `npm run prettier -- --check`;
   pkg.scripts["fix:format"] = `npm run prettier -- --write`;
   fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2), "utf8");
@@ -136,13 +143,6 @@ configuration block to avoid conflicts.`,
   require("child_process").execSync("npm install --save-dev prettier@^2", {
     stdio: "inherit",
   });
-
-  if (!fs.existsSync(".gitignore")) {
-    log("No '.gitignore' file found, creating one now...");
-    require("child_process").execSync("npx gitignore@latest node", {
-      stdio: "inherit",
-    });
-  }
 
   log("Updating VS Code project settings to use prettier plugin...");
   /** @type {any} */
