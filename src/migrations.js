@@ -1,3 +1,6 @@
+//@ts-check
+
+const chalk = require("chalk");
 const fs = require("fs");
 
 /** @param {string} message */
@@ -31,7 +34,7 @@ module.exports.cleanPkgScriptsV1 = cleanPkgScriptsV1;
 // v2
 /**
  * @param {{
- *   'fix:format'?: string
+ *   'lint:format'?: string
  * }} scripts
  */
 function cleanPkgScriptsV2(scripts) {
@@ -46,10 +49,68 @@ function cleanPkgScriptsV2(scripts) {
 module.exports.cleanPkgScriptsV2 = cleanPkgScriptsV2;
 
 const V2_CONFIG_FILENAME = "prettier.config.js";
+/**
+ * @returns {{
+ *   needsPrettierIgnore: boolean;
+ * }}
+ */
 function updateConfigV2() {
   if (fs.existsSync(V2_CONFIG_FILENAME)) {
     log(`Found outdated config file '${V2_CONFIG_FILENAME}', deleting...`);
     fs.rmSync(V2_CONFIG_FILENAME);
   }
+
+  /** @param {string} contents */
+  function stripIgnoreFile(contents) {
+    return contents
+      .split(/\r?\n/)
+      .map((line) =>
+        line
+          // remove comments
+          .replace(/#.*$/, "")
+          .trim()
+          // remove trailing slashes as they don't make a functional difference
+          .replace(/\/$/, ""),
+      )
+      .filter((line) => line.length > 0);
+  }
+
+  let needsPrettierIgnore = false;
+  if (fs.existsSync(".prettierignore")) {
+    let prettierIgnore = stripIgnoreFile(
+      fs.readFileSync(".prettierignore", "utf-8"),
+    ).filter(
+      (line) =>
+        // Prettier used to cause conflicts for package.json and package-lock.json
+        // files, with difference in formatting vs the result of 'npm install',
+        // but now it's been fixed, so we can safely skip these ignores
+        !/^package.*json$/.test(line),
+    );
+    let gitIgnore = stripIgnoreFile(fs.readFileSync(".gitignore", "utf-8"));
+
+    let notInGitIgnore = prettierIgnore.filter(
+      (line) => !gitIgnore.includes(line),
+    );
+    if (notInGitIgnore.length > 0) {
+      needsPrettierIgnore = true;
+      log(
+        chalk.yellow(
+          "Found the following lines in .prettierignore that aren't in .gitignore.\n\n",
+        ) +
+          notInGitIgnore.map((line) => "  " + line).join("\n") +
+          chalk.yellow(`\n
+If these are files that can be ignored by git, add them to .gitignore and rerun
+this script and then you won't need the extra .prettierignore file
+`),
+      );
+    }
+    if (!needsPrettierIgnore) {
+      fs.rmSync(".prettierignore");
+    }
+  }
+  // read prettier ignore
+  /// look for dups gitignore, if all dups delete, otherwise
+  // print a warning warning with steps for updating script
+  return { needsPrettierIgnore };
 }
 module.exports.updateConfigV2 = updateConfigV2;
