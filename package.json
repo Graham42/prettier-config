@@ -1,6 +1,6 @@
 {
   "name": "@graham42/prettier-config",
-  "version": "3.0.0-dev.0",
+  "version": "3.0.0-alpha.0",
   "engines": {
     "node": ">=12"
   },
