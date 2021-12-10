@@ -4,6 +4,8 @@
 let fs = require("fs");
 let path = require("path");
 let chalk = require("chalk");
+let commentJSON = require("comment-json");
+let { format } = require("prettier");
 let {
   cleanPkgScriptsV1,
   cleanPkgScriptsV2,
@@ -24,7 +26,6 @@ let PRETTIER_CONFIG_FILENAMES = [
   ".prettierrc.config.cjs",
   ".prettierrc.toml",
 ];
-// Update package.json with scripts for formatting and checking format
 // This list is an approximation based on the supported parsers
 // https://prettier.io/docs/en/options.html#parser
 let PRETTIER_FILE_EXTENSIONS = [
@@ -44,6 +45,23 @@ let PRETTIER_FILE_EXTENSIONS = [
   "json5",
   "md",
   "mdx",
+];
+const PRETTIER_VSCODE_LANGUAGE_IDS = [
+  "[javascript]",
+  "[javascriptreact]",
+  "[typescript]",
+  "[typescriptreact]",
+  "[html]",
+  "[vue]",
+  "[css]",
+  "[less]",
+  "[scss]",
+  "[graphql]",
+  "[yaml]",
+  "[json]",
+  "[json5]",
+  "[markdown]",
+  "[mdx]",
 ];
 
 /** @param {string} message */
@@ -125,6 +143,37 @@ configuration block to avoid conflicts.`,
       stdio: "inherit",
     });
   }
+
+  log("Updating VS Code project settings to use prettier plugin...");
+  /** @type {any} */
+  let vscodeSettings = {};
+  if (fs.existsSync(".vscode/settings.json")) {
+    vscodeSettings = commentJSON.parse(
+      fs.readFileSync(".vscode/settings.json", "utf-8"),
+    );
+  }
+  if (!fs.existsSync(".vscode")) {
+    fs.mkdirSync(".vscode");
+  }
+  for (let languageID of PRETTIER_VSCODE_LANGUAGE_IDS) {
+    vscodeSettings[languageID] = vscodeSettings[languageID] || {};
+    // We need to set this because if multiple formatters are available, and no
+    // default is specified, the formatting won't apply on save.
+    vscodeSettings[languageID]["editor.defaultFormatter"] =
+      "esbenp.prettier-vscode";
+  }
+  vscodeSettings["editor.formatOnSave"] = true;
+  let vscodeSettingsResult = commentJSON
+    // must include the null and 2 spaces here otherwise comments are not preserved
+    .stringify(vscodeSettings, null, 2)
+    // This is a hack to try and condense the settings we've added
+    .replace(/\"\s*\}/g, '"}')
+    .replace(/\{\s*\"/g, '{"');
+  vscodeSettingsResult = format(vscodeSettingsResult, { parser: "json" });
+  fs.writeFileSync(".vscode/settings.json", vscodeSettingsResult, "utf-8");
+
+  // TODO - Future enhancement, detect if `code` cli is available and use that
+  // to install the prettier extension automatically
 
   log(`
 ${chalk.bgBlack.blue("Prettier setup complete!")}
