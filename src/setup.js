@@ -145,15 +145,15 @@ configuration block to avoid conflicts.`,
   });
 
   log("Updating VS Code project settings to use prettier plugin...");
+  if (!fs.existsSync(".vscode")) {
+    fs.mkdirSync(".vscode");
+  }
   /** @type {any} */
   let vscodeSettings = {};
   if (fs.existsSync(".vscode/settings.json")) {
     vscodeSettings = commentJSON.parse(
       fs.readFileSync(".vscode/settings.json", "utf-8"),
     );
-  }
-  if (!fs.existsSync(".vscode")) {
-    fs.mkdirSync(".vscode");
   }
   for (let languageID of PRETTIER_VSCODE_LANGUAGE_IDS) {
     vscodeSettings[languageID] = vscodeSettings[languageID] || {};
@@ -172,8 +172,21 @@ configuration block to avoid conflicts.`,
   vscodeSettingsResult = format(vscodeSettingsResult, { parser: "json" });
   fs.writeFileSync(".vscode/settings.json", vscodeSettingsResult, "utf-8");
 
-  // TODO - Future enhancement, detect if `code` cli is available and use that
-  // to install the prettier extension automatically
+  /** @type {{recommendations?: Array<string>}} */
+  let vscodeExtensions = {};
+  if (fs.existsSync(".vscode/extensions.json")) {
+    vscodeExtensions = commentJSON.parse(
+      fs.readFileSync(".vscode/extensions.json", "utf-8"),
+    );
+  }
+  vscodeExtensions["recommendations"] =
+    vscodeExtensions["recommendations"] || [];
+  if (!vscodeExtensions["recommendations"].includes("esbenp.prettier-vscode")) {
+    vscodeExtensions["recommendations"].push("esbenp.prettier-vscode");
+  }
+  let vscodeExtensionsResult = commentJSON.stringify(vscodeExtensions, null, 2);
+  vscodeExtensionsResult = format(vscodeExtensionsResult, { parser: "json" });
+  fs.writeFileSync(".vscode/extensions.json", vscodeExtensionsResult, "utf-8");
 
   log(`
 ${chalk.bgBlack.blue("Prettier setup complete!")}
