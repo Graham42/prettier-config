@@ -1,19 +1,12 @@
-# Prettier Config
+# `@graham42/prettier-config`
 
-[Prettier](https://prettier.io) is an awesome tool, however I have a preference
-for some config that differs from the defaults. My reasoning is fully explained
-in the [config file](./index.js).
+This package provides automated setup of [Prettier][] in a new project.
 
-# Setup
+It will set up scripts `check:format` and `fix:format` in package.json and a
+minimal config file at `.prettierrc.js` for better git diffs.
 
-Run this command to install and configure prettier:
-
-```sh
-npx @graham42/prettier-config
-```
-
-or if you are writing `es5` code run:
+## Usage
 
 ```sh
-npx @graham42/prettier-config --es5
+npx @graham42/prettier-config@latest
 ```
