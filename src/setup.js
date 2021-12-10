@@ -137,7 +137,7 @@ configuration block to avoid conflicts.`,
     : `prettier --ignore-path .gitignore "${targetFilesGlob}"`;
   pkg.scripts["check:format"] = `npm run prettier -- --check`;
   pkg.scripts["fix:format"] = `npm run prettier -- --write`;
-  fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2), "utf8");
+  fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n", "utf8");
 
   log(`Installing prettier...`);
   require("child_process").execSync("npm install --save-dev prettier@^2", {
