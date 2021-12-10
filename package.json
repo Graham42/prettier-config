@@ -17,8 +17,9 @@
   "scripts": {
     "check:types": "tsc -p jsconfig.json",
     "test": "bash ./setup.test.sh",
-    "lint:format": "prettier --list-different '**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,md,mdx}' ",
-    "fix:format": "prettier --write '**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,md,mdx}' "
+    "prettier": "prettier --ignore-path .gitignore  \"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\"",
+    "check:format": "npm run prettier -- --check",
+    "fix:format": "npm run prettier -- --write"
   },
   "keywords": [
     "prettier",
