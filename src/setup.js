@@ -64,7 +64,12 @@ const PRETTIER_VSCODE_LANGUAGE_IDS = [
   "[mdx]",
 ];
 
-/** @param {string} message */
+/**
+ * Progress messages should go to stderr so that the output from one CLI tool
+ * can be safely piped into another CLI tool.
+ *
+ * @param {string} message
+ */
 function log(message) {
   process.stderr.write(message + "\n");
 }
