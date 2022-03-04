@@ -198,17 +198,17 @@ configuration block to avoid conflicts.`,
 ${chalk.bgBlack.blue("Prettier setup complete!")}
 You can see the new and updated files with 'git status' and 'git diff'.
 
-I recommend you create a commit with this new configuration, and then a second
-commit with any formatting changes, to make reviewing easier.
+I recommend you create a commit with just this new configuration, and then a
+second commit with any formatting changes, to make reviewing easier.
 
-For the first commit you can run
+For the first commit run
 
-    git add --update # This adds all files that were already tracked by git
+    git add --update
     git add package.json package-lock.json ${CONFIG_FILENAME} .gitignore .vscode
     git commit -m "chore: configure prettier" \\
         -m "Autoformatting makes for an awesome developer experience!"
 
-For the second commit, first run the autoformat script, then create the commit
+For the second commit, run the autoformat script, then create the commit
 
     npm run fix:format
     git add --update
