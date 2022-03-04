@@ -106,10 +106,12 @@ run 'npm init' first.`,
   for (let filename of PRETTIER_CONFIG_FILENAMES) {
     if (filename === CONFIG_FILENAME) continue;
     if (fs.existsSync(filename)) {
+      let backupFilename = `backup.${filename}`;
+      fs.renameSync(filename, backupFilename);
       logWarning(
-        `found existing prettier config file '${filename}'. This will conflict
-with the new config file that at '${CONFIG_FILENAME}'. Please delete the
-existing config file to avoid conflicts.`,
+        `existing prettier config file '${filename}' has been renamed to
+'${backupFilename}' to avoid conflicts. You can delete this file after this
+script completes.`,
       );
     }
   }
@@ -117,10 +119,15 @@ existing config file to avoid conflicts.`,
   let pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
   let hasPrettierInPackageJson = Boolean(pkg["prettier"]);
   if (hasPrettierInPackageJson) {
+    let backupFilename = "backup.prettier-config-from-package.json";
+    fs.writeFileSync(backupFilename, JSON.stringify(pkg["prettier"], null, 2), {
+      encoding: "utf-8",
+    });
+    delete pkg["prettier"];
     logWarning(
-      `Found 'prettier' configuration in your 'package.json' file. This will
-conflict with the new configuration at '${CONFIG_FILENAME}'. Please delete this
-configuration block to avoid conflicts.`,
+      `removed 'prettier' configuration from 'package.json' file and a backup of
+the configuration has been written to '${backupFilename}'. You can delete this
+file after this script completes.`,
     );
   }
 

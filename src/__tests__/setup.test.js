@@ -122,7 +122,39 @@ describe("setup tests", () => {
     /**/
   }, 20000);
 
-  it("should setup current version in existing project", async () => {
+  it("should overwrite existing prettier config in a file", async () => {
+    let oldConfigFile = ".prettierrc";
+    await fsPromises.writeFile(
+      oldConfigFile,
+      JSON.stringify({ proseWrap: "never" }),
+      { encoding: "utf-8" },
+    );
+    setupPrettierConfig();
+
+    expect(existsSync(oldConfigFile)).toEqual(false);
+  });
+
+  it("should overwrite existing prettier config in package.json", async () => {
+    let packageJsonRaw = await fsPromises.readFile(
+      path.join(workingDir, "package.json"),
+      { encoding: "utf-8" },
+    );
+    let packageJson = JSON.parse(packageJsonRaw);
+    packageJson.prettier = { proseWrap: "never" };
+    await fsPromises.writeFile("package.json", JSON.stringify(packageJson), {
+      encoding: "utf-8",
+    });
+    setupPrettierConfig();
+
+    let packageJsonRawAfter = await fsPromises.readFile(
+      path.join(workingDir, "package.json"),
+      { encoding: "utf-8" },
+    );
+    let packageJsonAfter = JSON.parse(packageJsonRawAfter);
+    expect(packageJsonAfter.prettier).toBeUndefined();
+  });
+
+  it("should setup in existing project", async () => {
     // make some modifications to assert that specific files aren't overwritten
     // run the setup
     // verify existing bits are still there
