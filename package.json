@@ -6,9 +6,10 @@
   },
   "description": "Automated prettier config setup",
   "main": "src/index.js",
-  "bin": "src/setup.js",
+  "bin": "src/bin.js",
   "files": [
-    "src/"
+    "src/",
+    "!**/__tests__/**/*"
   ],
   "repository": {
     "type": "git",
@@ -16,7 +17,7 @@
   },
   "scripts": {
     "check:types": "tsc -p jsconfig.json",
-    "test": "bash ./setup.test.sh",
+    "test": "jest",
     "prettier": "prettier --ignore-path .gitignore  \"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\"",
     "check:format": "npm run prettier -- --check",
     "fix:format": "npm run prettier -- --write"
@@ -29,8 +30,11 @@
   "author": "Graham McGregor",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^27.4.1",
     "@types/node": "^12.20.37",
     "@types/prettier": "^2.4.2",
+    "jest": "^27.5.1",
+    "tree-node-cli": "^1.5.2",
     "typescript": "^4.5.2"
   },
   "dependencies": {

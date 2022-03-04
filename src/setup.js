@@ -82,7 +82,7 @@ function logWarning(message) {
   log(chalk.yellow("WARNING: ") + message);
 }
 
-async function main() {
+async function setupPrettierConfig() {
   if (!fs.existsSync("package.json")) {
     logError(
       `No 'package.json'  file found in the current directory. Make sure you are
@@ -122,8 +122,9 @@ configuration block to avoid conflicts.`,
 
   log(`Writing new config file to ${CONFIG_FILENAME}...`);
   let prettierConfigRaw =
-    `// This file and the npm scripts 'check:format' and 'lint:format' were
-// generated with 'npx @graham42/prettier-config@latest'.
+    `// This file and the npm scripts 'check:format' and 'fix:format' were
+// generated with the command 'npx @graham42/prettier-config@latest'.
+// To receive new updates, run the command again.
 ` +
     fs
       .readFileSync(path.join(__dirname, "index.js"), "utf8")
@@ -216,13 +217,4 @@ For the second commit, first run the autoformat script, then create the commit
 🎉 All Done!
 `);
 }
-
-main().catch((err) => {
-  logError(`Sorry! Something went wrong: ${chalk.bold(err.message)}
-${chalk.dim(err.stack)}
-
-If this looks like a bug, please raise an issue at
-https://github.com/Graham42/prettier-config/issues/new
-`);
-  process.exit(1);
-});
+module.exports.setupPrettierConfig = setupPrettierConfig;
