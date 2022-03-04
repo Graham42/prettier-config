@@ -154,7 +154,7 @@ describe("setup tests", () => {
     expect(packageJsonAfter.prettier).toBeUndefined();
   });
 
-  it.only("should raise an error if this isn't a JavaScript project", async () => {
+  it("should raise an error if this isn't a JavaScript project", async () => {
     await fsPromises.rm("package.json");
     await expect(() => setupPrettierConfig()).rejects.toMatchInlineSnapshot(`
             [Error: No 'package.json' file found in the current directory.
