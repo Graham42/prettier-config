@@ -154,11 +154,9 @@ describe("setup tests", () => {
     expect(packageJsonAfter.prettier).toBeUndefined();
   });
 
-  it("should setup in existing project", async () => {
-    // make some modifications to assert that specific files aren't overwritten
-    // run the setup
-    // verify existing bits are still there
-    console.log("TODO stub");
+  it("should raise an error if this isn't a JavaScript project", async () => {
+    await fsPromises.rm("package.json");
+    expect(() => setupPrettierConfig()).toThrow();
   });
 });
 
