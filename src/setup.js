@@ -10,6 +10,7 @@ let {
   cleanPkgScriptsV1,
   cleanPkgScriptsV2,
   updateConfigV2,
+  updateConfigV1,
 } = require("./migrations.js");
 
 let CONFIG_FILENAME = ".prettierrc.js";
@@ -91,7 +92,6 @@ run 'npm init' first.`,
     );
     process.exit(1);
   }
-  let pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
 
   if (!fs.existsSync(".gitignore")) {
     log("No '.gitignore' file found, creating one now...");
@@ -99,6 +99,8 @@ run 'npm init' first.`,
       stdio: "inherit",
     });
   }
+
+  updateConfigV1();
 
   const { needsPrettierIgnore } = updateConfigV2();
   for (let filename of PRETTIER_CONFIG_FILENAMES) {
@@ -111,6 +113,8 @@ existing config file to avoid conflicts.`,
       );
     }
   }
+
+  let pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
   let hasPrettierInPackageJson = Boolean(pkg["prettier"]);
   if (hasPrettierInPackageJson) {
     logWarning(
