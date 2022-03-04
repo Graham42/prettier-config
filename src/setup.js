@@ -23,8 +23,8 @@ let PRETTIER_CONFIG_FILENAMES = [
   ".prettierrc.json5",
   ".prettierrc.js",
   ".prettierrc.cjs",
-  ".prettierrc.config.js",
-  ".prettierrc.config.cjs",
+  "prettier.config.js",
+  "prettier.config.cjs",
   ".prettierrc.toml",
 ];
 // This list is an approximation based on the supported parsers
