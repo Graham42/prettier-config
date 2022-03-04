@@ -1,8 +1,15 @@
-//ts-check
+//@ts-check
 
-const { main } = require("./setup");
+const chalk = require("chalk");
+const { setupPrettierConfig } = require("./setup");
+const { UserError, logError } = require("./util");
 
-main().catch((err) => {
+setupPrettierConfig().catch((err) => {
+  if (err instanceof UserError) {
+    logError(err.message);
+    process.exit(1);
+  }
+
   logError(`Sorry! Something went wrong: ${chalk.bold(err.message)}
 ${chalk.dim(err.stack)}
 

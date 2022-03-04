@@ -12,6 +12,7 @@ let {
   updateConfigV2,
   updateConfigV1,
 } = require("./migrations.js");
+const { log, logWarning, UserError } = require("./util.js");
 
 let CONFIG_FILENAME = ".prettierrc.js";
 let PRETTIER_CONFIG_FILENAMES = [
@@ -65,32 +66,11 @@ const PRETTIER_VSCODE_LANGUAGE_IDS = [
   "[mdx]",
 ];
 
-/**
- * Progress messages should go to stderr so that the output from one CLI tool
- * can be safely piped into another CLI tool.
- *
- * @param {string} message
- */
-function log(message) {
-  process.stderr.write(message + "\n");
-}
-/** @param {string} message */
-function logError(message) {
-  log(chalk.red("ERROR: ") + message);
-}
-/** @param {string} message */
-function logWarning(message) {
-  log(chalk.yellow("WARNING: ") + message);
-}
-
 async function setupPrettierConfig() {
   if (!fs.existsSync("package.json")) {
-    logError(
-      `No 'package.json'  file found in the current directory. Make sure you are
+    throw new UserError(`No 'package.json'  file found in the current directory. Make sure you are
 in the project root and then try again. If no 'package.json' file exists yet,
-run 'npm init' first.`,
-    );
-    process.exit(1);
+run 'npm init' first.`);
   }
 
   if (!fs.existsSync(".gitignore")) {

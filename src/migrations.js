@@ -3,11 +3,8 @@
 const chalk = require("chalk");
 const { execSync } = require("child_process");
 const fs = require("fs");
+const { log } = require("./util");
 
-/** @param {string} message */
-function log(message) {
-  process.stderr.write(message + "\n");
-}
 ////////////////////////////////////////////////////////////////////////////////
 // V1
 
