@@ -25,6 +25,7 @@
 // echo "fix:format script should exist"
 // npm run fix:format
 
+const { existsSync } = require("fs");
 const fsPromises = require("fs/promises");
 const os = require("os");
 const path = require("path");
@@ -62,6 +63,7 @@ describe("setup tests", () => {
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
   });
+
   it("should migrate from v1", async () => {
     execSync("npx @graham42/prettier-config@^1", { encoding: "utf-8" });
     setupPrettierConfig();
@@ -69,6 +71,7 @@ describe("setup tests", () => {
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
   }, 20000);
+
   it("should migrate from v2", async () => {
     execSync("npx @graham42/prettier-config@^2", { encoding: "utf-8" });
     setupPrettierConfig();
@@ -76,6 +79,49 @@ describe("setup tests", () => {
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
   }, 20000);
+
+  it("should migrate from v2 with a required ignore file", async () => {
+    execSync("npx @graham42/prettier-config@^2", { encoding: "utf-8" });
+    let prettierIgnoreContents = await fsPromises.readFile(".prettierignore", {
+      encoding: "utf-8",
+    });
+    await fsPromises.writeFile(
+      ".prettierignore",
+      prettierIgnoreContents + "\nfoo\nbar\n",
+      { encoding: "utf-8" },
+    );
+    setupPrettierConfig();
+
+    // the prettierignore file should still be there
+    expect(existsSync(".prettierignore")).toEqual(true);
+
+    // the prettier script should use prettierignore, not gitignore
+    let packageJsonRaw = await fsPromises.readFile(
+      path.join(workingDir, "package.json"),
+      { encoding: "utf-8" },
+    );
+    let packageJson = JSON.parse(packageJsonRaw);
+    expect(packageJson.scripts.prettier).toMatchInlineSnapshot(
+      `"prettier \\"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\\""`,
+    );
+    /**/
+    // following the instructions to remove the items from the file, and then
+    // re-run the setup should complete the upgrade
+    await fsPromises.writeFile(".prettierignore", "", { encoding: "utf-8" });
+    setupPrettierConfig();
+    expect(existsSync(".prettierignore")).toEqual(false);
+    let nextPackageJsonRaw = await fsPromises.readFile(
+      path.join(workingDir, "package.json"),
+      { encoding: "utf-8" },
+    );
+    let nextPackageJson = JSON.parse(nextPackageJsonRaw);
+    // This script should use gitignore, not the default prettierignore
+    expect(nextPackageJson.scripts.prettier).toMatchInlineSnapshot(
+      `"prettier --ignore-path .gitignore \\"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\\""`,
+    );
+    /**/
+  }, 20000);
+
   it("should setup current version in existing project", async () => {
     // make some modifications to assert that specific files aren't overwritten
     // run the setup
