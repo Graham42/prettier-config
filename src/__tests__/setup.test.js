@@ -58,7 +58,7 @@ describe("setup tests", () => {
   });
 
   it("should setup current version in fresh project", async () => {
-    setupPrettierConfig();
+    await setupPrettierConfig();
 
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
@@ -66,7 +66,7 @@ describe("setup tests", () => {
 
   it("should migrate from v1", async () => {
     execSync("npx @graham42/prettier-config@^1", { encoding: "utf-8" });
-    setupPrettierConfig();
+    await setupPrettierConfig();
 
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
@@ -74,7 +74,7 @@ describe("setup tests", () => {
 
   it("should migrate from v2", async () => {
     execSync("npx @graham42/prettier-config@^2", { encoding: "utf-8" });
-    setupPrettierConfig();
+    await setupPrettierConfig();
 
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
@@ -90,7 +90,7 @@ describe("setup tests", () => {
       prettierIgnoreContents + "\nfoo\nbar\n",
       { encoding: "utf-8" },
     );
-    setupPrettierConfig();
+    await setupPrettierConfig();
 
     // the prettierignore file should still be there
     expect(existsSync(".prettierignore")).toEqual(true);
@@ -108,7 +108,7 @@ describe("setup tests", () => {
     // following the instructions to remove the items from the file, and then
     // re-run the setup should complete the upgrade
     await fsPromises.writeFile(".prettierignore", "", { encoding: "utf-8" });
-    setupPrettierConfig();
+    await setupPrettierConfig();
     expect(existsSync(".prettierignore")).toEqual(false);
     let nextPackageJsonRaw = await fsPromises.readFile(
       path.join(workingDir, "package.json"),
@@ -129,7 +129,7 @@ describe("setup tests", () => {
       JSON.stringify({ proseWrap: "never" }),
       { encoding: "utf-8" },
     );
-    setupPrettierConfig();
+    await setupPrettierConfig();
 
     expect(existsSync(oldConfigFile)).toEqual(false);
   });
@@ -144,7 +144,7 @@ describe("setup tests", () => {
     await fsPromises.writeFile("package.json", JSON.stringify(packageJson), {
       encoding: "utf-8",
     });
-    setupPrettierConfig();
+    await setupPrettierConfig();
 
     let packageJsonRawAfter = await fsPromises.readFile(
       path.join(workingDir, "package.json"),
@@ -154,9 +154,13 @@ describe("setup tests", () => {
     expect(packageJsonAfter.prettier).toBeUndefined();
   });
 
-  it("should raise an error if this isn't a JavaScript project", async () => {
+  it.only("should raise an error if this isn't a JavaScript project", async () => {
     await fsPromises.rm("package.json");
-    expect(() => setupPrettierConfig()).toThrow();
+    await expect(() => setupPrettierConfig()).rejects.toMatchInlineSnapshot(`
+            [Error: No 'package.json' file found in the current directory.
+            Make sure you are in the project root and then try again. If no 'package.json'
+            file exists yet, run 'npm init' first.]
+          `);
   });
 });
 
