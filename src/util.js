@@ -22,12 +22,3 @@ function logWarning(message) {
   log(chalk.yellow("WARNING: ") + message);
 }
 module.exports.logWarning = logWarning;
-
-/** @param {string} message */
-function UserError(message) {
-  this.name = "UserError";
-  this.message = message || "Invalid configuration or input";
-}
-UserError.prototype = Object.create(Error.prototype);
-UserError.prototype.constructor = UserError;
-module.exports.UserError = UserError;
