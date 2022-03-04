@@ -5,5 +5,5 @@ workflow "Test" {
 
 action "test" {
   uses = "docker://node:lts"
-  args = "bash setup.test.sh"
+  args = "npm run test"
 }

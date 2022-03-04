@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setup tests should migrate from v1 1`] = `
+"__WORK_DIR__/
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── .gitignore
+├── .prettierrc.js
+├── package-lock.json
+└── package.json"
+`;
+
+exports[`setup tests should migrate from v1 2`] = `
+"{
+  \\"[javascript]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[javascriptreact]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[typescript]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[typescriptreact]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[html]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[vue]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[css]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[less]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[scss]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[graphql]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[yaml]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[json]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[json5]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[markdown]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[mdx]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"editor.formatOnSave\\": true
+}
+"
+`;
+
+exports[`setup tests should migrate from v1 3`] = `
+"{
+  \\"recommendations\\": [\\"esbenp.prettier-vscode\\"]
+}
+"
+`;
+
+exports[`setup tests should migrate from v1 4`] = `
+"// This file and the npm scripts 'check:format' and 'fix:format' were
+// generated with the command 'npx @graham42/prettier-config@latest'.
+// To receive new updates, run the command again.
+
+/**
+ * @type { import(\\"prettier\\").Options }
+ */
+module.exports = {
+  /*
+   * Requiring trailing commas makes git history work better. If you have an
+   * object:
+   * {
+   *   a: 1,
+   *   b: 2
+   * }
+   * and then add a property after 'b':
+   * {
+   *   a: 1,
+   *   b: 2,
+   *   c: 3
+   * }
+   * the line with 'b' gets changed (it now requires a comma) even though
+   * there's no meaningful change to it.
+   *
+   * When using the \`git blame\` command, git looks at line by line changes.
+   * These comma-only changes make it more difficult to follow history.
+   */
+  trailingComma: \\"all\\",
+  /**
+   * When viewing a markdown file with less, cat, vim, etc. the document is
+   * easier to read if the text is hard wrapped at 80 characters.
+   *
+   * This is a tradeoff because changes will often result in git diffs that
+   * have changes across multiple lines. Fortunately GitHub has a great feature
+   * for rendering differences in prose documents:
+   * https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/rendering-differences-in-prose-documents
+   *
+   * You can also view a reasonable diff in the terminal with \`--word-diff\`.
+   *
+   * In the end, this is a personal preference and you're welcome to change it!
+   */
+  proseWrap: \\"always\\",
+};
+"
+`;
+
+exports[`setup tests should migrate from v1 5`] = `
+Object {
+  "dependencies": undefined,
+  "devDependencies": Object {
+    "prettier": "^2.5.1",
+  },
+  "prettier": undefined,
+  "scripts": Object {
+    "check:format": "npm run prettier -- --check",
+    "fix:format": "npm run prettier -- --write",
+    "prettier": "prettier --ignore-path .gitignore \\"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\\"",
+    "test": "echo \\"Error: no test specified\\" && exit 1",
+  },
+}
+`;
+
+exports[`setup tests should migrate from v2 1`] = `
+"__WORK_DIR__/
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── .gitignore
+├── .prettierrc.js
+├── package-lock.json
+└── package.json"
+`;
+
+exports[`setup tests should migrate from v2 2`] = `
+"{
+  \\"[javascript]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[javascriptreact]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[typescript]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[typescriptreact]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[html]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[vue]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[css]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[less]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[scss]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[graphql]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[yaml]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[json]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[json5]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[markdown]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[mdx]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"editor.formatOnSave\\": true
+}
+"
+`;
+
+exports[`setup tests should migrate from v2 3`] = `
+"{
+  \\"recommendations\\": [\\"esbenp.prettier-vscode\\"]
+}
+"
+`;
+
+exports[`setup tests should migrate from v2 4`] = `
+"// This file and the npm scripts 'check:format' and 'fix:format' were
+// generated with the command 'npx @graham42/prettier-config@latest'.
+// To receive new updates, run the command again.
+
+/**
+ * @type { import(\\"prettier\\").Options }
+ */
+module.exports = {
+  /*
+   * Requiring trailing commas makes git history work better. If you have an
+   * object:
+   * {
+   *   a: 1,
+   *   b: 2
+   * }
+   * and then add a property after 'b':
+   * {
+   *   a: 1,
+   *   b: 2,
+   *   c: 3
+   * }
+   * the line with 'b' gets changed (it now requires a comma) even though
+   * there's no meaningful change to it.
+   *
+   * When using the \`git blame\` command, git looks at line by line changes.
+   * These comma-only changes make it more difficult to follow history.
+   */
+  trailingComma: \\"all\\",
+  /**
+   * When viewing a markdown file with less, cat, vim, etc. the document is
+   * easier to read if the text is hard wrapped at 80 characters.
+   *
+   * This is a tradeoff because changes will often result in git diffs that
+   * have changes across multiple lines. Fortunately GitHub has a great feature
+   * for rendering differences in prose documents:
+   * https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/rendering-differences-in-prose-documents
+   *
+   * You can also view a reasonable diff in the terminal with \`--word-diff\`.
+   *
+   * In the end, this is a personal preference and you're welcome to change it!
+   */
+  proseWrap: \\"always\\",
+};
+"
+`;
+
+exports[`setup tests should migrate from v2 5`] = `
+Object {
+  "dependencies": undefined,
+  "devDependencies": Object {
+    "prettier": "^2.5.1",
+  },
+  "prettier": undefined,
+  "scripts": Object {
+    "check:format": "npm run prettier -- --check",
+    "fix:format": "npm run prettier -- --write",
+    "prettier": "prettier --ignore-path .gitignore \\"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\\"",
+    "test": "echo \\"Error: no test specified\\" && exit 1",
+  },
+}
+`;
+
+exports[`setup tests should setup current version in fresh project 1`] = `
+"__WORK_DIR__/
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── .gitignore
+├── .prettierrc.js
+├── package-lock.json
+└── package.json"
+`;
+
+exports[`setup tests should setup current version in fresh project 2`] = `
+"{
+  \\"[javascript]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[javascriptreact]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[typescript]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[typescriptreact]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[html]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[vue]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[css]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[less]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[scss]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[graphql]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[yaml]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[json]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[json5]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[markdown]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"[mdx]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
+  \\"editor.formatOnSave\\": true
+}
+"
+`;
+
+exports[`setup tests should setup current version in fresh project 3`] = `
+"{
+  \\"recommendations\\": [\\"esbenp.prettier-vscode\\"]
+}
+"
+`;
+
+exports[`setup tests should setup current version in fresh project 4`] = `
+"// This file and the npm scripts 'check:format' and 'fix:format' were
+// generated with the command 'npx @graham42/prettier-config@latest'.
+// To receive new updates, run the command again.
+
+/**
+ * @type { import(\\"prettier\\").Options }
+ */
+module.exports = {
+  /*
+   * Requiring trailing commas makes git history work better. If you have an
+   * object:
+   * {
+   *   a: 1,
+   *   b: 2
+   * }
+   * and then add a property after 'b':
+   * {
+   *   a: 1,
+   *   b: 2,
+   *   c: 3
+   * }
+   * the line with 'b' gets changed (it now requires a comma) even though
+   * there's no meaningful change to it.
+   *
+   * When using the \`git blame\` command, git looks at line by line changes.
+   * These comma-only changes make it more difficult to follow history.
+   */
+  trailingComma: \\"all\\",
+  /**
+   * When viewing a markdown file with less, cat, vim, etc. the document is
+   * easier to read if the text is hard wrapped at 80 characters.
+   *
+   * This is a tradeoff because changes will often result in git diffs that
+   * have changes across multiple lines. Fortunately GitHub has a great feature
+   * for rendering differences in prose documents:
+   * https://docs.github.com/en/free-pro-team@latest/github/managing-files-in-a-repository/rendering-differences-in-prose-documents
+   *
+   * You can also view a reasonable diff in the terminal with \`--word-diff\`.
+   *
+   * In the end, this is a personal preference and you're welcome to change it!
+   */
+  proseWrap: \\"always\\",
+};
+"
+`;
+
+exports[`setup tests should setup current version in fresh project 5`] = `
+Object {
+  "dependencies": undefined,
+  "devDependencies": Object {
+    "prettier": "^2.5.1",
+  },
+  "prettier": undefined,
+  "scripts": Object {
+    "check:format": "npm run prettier -- --check",
+    "fix:format": "npm run prettier -- --write",
+    "prettier": "prettier --ignore-path .gitignore \\"**/*.{js,jsx,ts,tsx,html,vue,css,less,scss,graphql,yaml,yml,json,json5,md,mdx}\\"",
+    "test": "echo \\"Error: no test specified\\" && exit 1",
+  },
+}
+`;
