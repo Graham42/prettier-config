@@ -68,7 +68,6 @@ describe("setup tests", () => {
 
     expectProjectStructure(workingDir);
     await expectProjectContents(workingDir);
-    // TODO BUG dependency should be uninstalled
   }, 20000);
   it("should migrate from v2", async () => {
     execSync("npx @graham42/prettier-config@^2", { encoding: "utf-8" });

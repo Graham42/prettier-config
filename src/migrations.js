@@ -1,6 +1,7 @@
 //@ts-check
 
 const chalk = require("chalk");
+const { execSync } = require("child_process");
 const fs = require("fs");
 
 /** @param {string} message */
@@ -29,6 +30,11 @@ function cleanPkgScriptsV1(scripts) {
   return newScripts;
 }
 module.exports.cleanPkgScriptsV1 = cleanPkgScriptsV1;
+
+function updateConfigV1() {
+  execSync("npm uninstall @graham42/prettier-config", { stdio: "inherit" });
+}
+module.exports.updateConfigV1 = updateConfigV1;
 
 ////////////////////////////////////////////////////////////////////////////////
 // v2
