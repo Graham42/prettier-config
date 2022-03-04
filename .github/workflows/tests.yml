@@ -1,0 +1,11 @@
+name: Run all tests
+on: [push]
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run test
+      - run: bash setup.test.sh
