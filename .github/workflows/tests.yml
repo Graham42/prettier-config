@@ -9,3 +9,4 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: bash setup.test.sh
+      - run: npm run check:format
