@@ -3,8 +3,8 @@
 const chalk = require("chalk");
 
 /**
- * Progress messages should go to stderr so that the output from one CLI tool
- * can be safely piped into another CLI tool.
+ * As a general practice, progress messages should go to stderr so that the
+ * output from one CLI tool can be safely piped into another CLI tool.
  *
  * @param {string} message
  */
