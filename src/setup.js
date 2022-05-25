@@ -14,6 +14,7 @@ let {
 const { log, logWarning } = require("./logger.js");
 
 let CONFIG_FILENAME = ".prettierrc.js";
+// This list is from the docs: https://prettier.io/docs/en/configuration.html
 let PRETTIER_CONFIG_FILENAMES = [
   //
   ".prettierrc",
@@ -72,16 +73,59 @@ Make sure you are in the project root and then try again. If no 'package.json'
 file exists yet, run 'npm init' first.`);
   }
 
+  setupGitignore();
+
+  updateConfigV1();
+  const { needsPrettierIgnore } = updateConfigV2();
+
+  removeExistingConfig();
+
+  setupConfig();
+
+  setupNpmScripts({ needsPrettierIgnore });
+
+  log(`Installing prettier...`);
+  require("child_process").execSync("npm install --save-dev prettier@^2", {
+    stdio: "inherit",
+  });
+
+  setupVsCodeConfig();
+
+  log(`
+${chalk.bgBlack.blue("Prettier setup complete!")}
+You can see the new and updated files with 'git status' and 'git diff'.
+
+I recommend you create a commit with just this new configuration, and then a
+second commit with any formatting changes, to make reviewing easier.
+
+For the first commit run
+
+    git add --update
+    git add package.json package-lock.json ${CONFIG_FILENAME} .gitignore .vscode
+    git commit -m "chore: configure prettier" \\
+        -m "Autoformatting makes for an awesome developer experience!"
+
+For the second commit, run the autoformat script, then create the commit
+
+    npm run fix:format
+    git add --update
+    git commit -m "chore: autoformat code with prettier"
+
+🎉 All Done!
+`);
+}
+module.exports.setupPrettierConfig = setupPrettierConfig;
+
+function setupGitignore() {
   if (!fs.existsSync(".gitignore")) {
     log("No '.gitignore' file found, creating one now...");
     require("child_process").execSync("npx gitignore@latest node", {
       stdio: "inherit",
     });
   }
+}
 
-  updateConfigV1();
-
-  const { needsPrettierIgnore } = updateConfigV2();
+function removeExistingConfig() {
   for (let filename of PRETTIER_CONFIG_FILENAMES) {
     if (filename === CONFIG_FILENAME) continue;
     if (fs.existsSync(filename)) {
@@ -108,8 +152,15 @@ script completes.`,
 the configuration has been written to '${backupFilename}'. You can delete this
 file after this script completes.`,
     );
+    fs.writeFileSync(
+      "package.json",
+      JSON.stringify(pkg, null, 2) + "\n",
+      "utf8",
+    );
   }
+}
 
+function setupConfig() {
   log(`Writing new config file to ${CONFIG_FILENAME}...`);
   let prettierConfigRaw =
     `// This file and the npm scripts 'check:format' and 'fix:format' were
@@ -120,8 +171,15 @@ file after this script completes.`,
       .readFileSync(path.join(__dirname, "index.js"), "utf8")
       .replace(/\/\/@ts-check/, "");
   fs.writeFileSync(CONFIG_FILENAME, prettierConfigRaw, "utf-8");
+}
 
+/**
+ * @param {object} args
+ * @param {boolean} args.needsPrettierIgnore
+ */
+function setupNpmScripts({ needsPrettierIgnore }) {
   log(`Creating scripts in package.json...`);
+  let pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
   let targetFilesGlob = `**/*.{${PRETTIER_FILE_EXTENSIONS.join(",")}}`;
   pkg.scripts = pkg.scripts || {};
   pkg.scripts = cleanPkgScriptsV1(pkg.scripts);
@@ -134,12 +192,9 @@ file after this script completes.`,
   pkg.scripts["check:format"] = `npm run prettier -- --check`;
   pkg.scripts["fix:format"] = `npm run prettier -- --write`;
   fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n", "utf8");
+}
 
-  log(`Installing prettier...`);
-  require("child_process").execSync("npm install --save-dev prettier@^2", {
-    stdio: "inherit",
-  });
-
+function setupVsCodeConfig() {
   log("Updating VS Code project settings to use prettier plugin...");
   if (!fs.existsSync(".vscode")) {
     fs.mkdirSync(".vscode");
@@ -183,28 +238,4 @@ file after this script completes.`,
   let vscodeExtensionsResult = commentJSON.stringify(vscodeExtensions, null, 2);
   vscodeExtensionsResult = format(vscodeExtensionsResult, { parser: "json" });
   fs.writeFileSync(".vscode/extensions.json", vscodeExtensionsResult, "utf-8");
-
-  log(`
-${chalk.bgBlack.blue("Prettier setup complete!")}
-You can see the new and updated files with 'git status' and 'git diff'.
-
-I recommend you create a commit with just this new configuration, and then a
-second commit with any formatting changes, to make reviewing easier.
-
-For the first commit run
-
-    git add --update
-    git add package.json package-lock.json ${CONFIG_FILENAME} .gitignore .vscode
-    git commit -m "chore: configure prettier" \\
-        -m "Autoformatting makes for an awesome developer experience!"
-
-For the second commit, run the autoformat script, then create the commit
-
-    npm run fix:format
-    git add --update
-    git commit -m "chore: autoformat code with prettier"
-
-🎉 All Done!
-`);
 }
-module.exports.setupPrettierConfig = setupPrettierConfig;
