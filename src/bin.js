@@ -3,7 +3,7 @@
 
 const chalk = require("chalk");
 const { setupPrettierConfig } = require("./setup");
-const { logError } = require("./util");
+const { logError } = require("./logger");
 
 setupPrettierConfig().catch((err) => {
   logError(`Sorry! Something went wrong: ${chalk.bold(err.message)}

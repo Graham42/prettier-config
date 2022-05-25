@@ -11,7 +11,7 @@ let {
   updateConfigV2,
   updateConfigV1,
 } = require("./migrations.js");
-const { log, logWarning } = require("./util.js");
+const { log, logWarning } = require("./logger.js");
 
 let CONFIG_FILENAME = ".prettierrc.js";
 let PRETTIER_CONFIG_FILENAMES = [
