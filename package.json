@@ -2,7 +2,7 @@
   "name": "@graham42/prettier-config",
   "version": "3.0.0-alpha.2",
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "description": "Automated prettier config setup",
   "main": "src/index.js",
