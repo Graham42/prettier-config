@@ -20,6 +20,7 @@ This package will set up:
 - the `prettier` package
 - [VS Code](https://code.visualstudio.com/) project settings to format on save
   using Prettier
+- some VS Code whitespace settings for better git diffs
 - the VS Code Prettier extension as a
   [recommended workspace extension](https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions)
   to help new contributors to your project get up and running
