@@ -1,5 +1,6 @@
-// This file and the npm scripts 'check:format' and 'lint:format' were
-// generated with 'npx @graham42/prettier-config@latest'.
+// This file and the npm scripts 'check:format' and 'fix:format' were
+// generated with the command 'npx @graham42/prettier-config@latest'.
+// To receive new updates, run the command again.
 
 /**
  * @type { import("prettier").Options }
