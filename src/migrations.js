@@ -3,7 +3,7 @@
 const chalk = require("chalk");
 const { execSync } = require("child_process");
 const fs = require("fs");
-const { log } = require("./util");
+const { log } = require("./logger");
 
 ////////////////////////////////////////////////////////////////////////////////
 // V1
