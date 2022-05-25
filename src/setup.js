@@ -127,6 +127,8 @@ function setupGitignore() {
 
 function removeExistingConfig() {
   for (let filename of PRETTIER_CONFIG_FILENAMES) {
+    // skip the config file that this package will overwrite. Changes to that
+    // file should be visible to the user via git diff
     if (filename === CONFIG_FILENAME) continue;
     if (fs.existsSync(filename)) {
       let backupFilename = `backup.${filename}`;
