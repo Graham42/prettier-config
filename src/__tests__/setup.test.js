@@ -180,6 +180,12 @@ async function expectProjectContents(workingDir) {
     { encoding: "utf-8" },
   );
   let packageJson = JSON.parse(packageJsonRaw);
+  expect(packageJson.devDependencies["prettier"]).toMatch(/^\^2/);
+  // allow prettier version to change minor and patch versions
+  packageJson.devDependencies["prettier"] = packageJson.devDependencies[
+    "prettier"
+  ].replace(/^\^2\..*/, "^2.x.x");
+
   // filter out fields that can change without impact to prettier
   let relevant = {
     scripts: packageJson.scripts,

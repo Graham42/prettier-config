@@ -93,7 +93,7 @@ exports[`setup tests should migrate from v1 5`] = `
 Object {
   "dependencies": undefined,
   "devDependencies": Object {
-    "prettier": "^2.5.1",
+    "prettier": "^2.x.x",
   },
   "prettier": undefined,
   "scripts": Object {
@@ -198,7 +198,7 @@ exports[`setup tests should migrate from v2 5`] = `
 Object {
   "dependencies": undefined,
   "devDependencies": Object {
-    "prettier": "^2.5.1",
+    "prettier": "^2.x.x",
   },
   "prettier": undefined,
   "scripts": Object {
@@ -303,7 +303,7 @@ exports[`setup tests should setup current version in fresh project 5`] = `
 Object {
   "dependencies": undefined,
   "devDependencies": Object {
-    "prettier": "^2.5.1",
+    "prettier": "^2.x.x",
   },
   "prettier": undefined,
   "scripts": Object {
