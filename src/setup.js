@@ -216,6 +216,11 @@ function setupVsCodeConfig() {
       "esbenp.prettier-vscode";
   }
   vscodeSettings["editor.formatOnSave"] = true;
+
+  // These settings are not prettier related, but they yield better git diffs
+  vscodeSettings["files.trimTrailingWhitespace"] = true;
+  vscodeSettings["files.insertFinalNewline"] = true;
+
   let vscodeSettingsResult = commentJSON
     // must include the null and 2 spaces here otherwise comments are not preserved
     .stringify(vscodeSettings, null, 2)

@@ -28,7 +28,9 @@ exports[`setup tests should migrate from v1 2`] = `
   \\"[json5]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
   \\"[markdown]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
   \\"[mdx]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
-  \\"editor.formatOnSave\\": true
+  \\"editor.formatOnSave\\": true,
+  \\"files.trimTrailingWhitespace\\": true,
+  \\"files.insertFinalNewline\\": true
 }
 "
 `;
@@ -131,7 +133,9 @@ exports[`setup tests should migrate from v2 2`] = `
   \\"[json5]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
   \\"[markdown]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
   \\"[mdx]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
-  \\"editor.formatOnSave\\": true
+  \\"editor.formatOnSave\\": true,
+  \\"files.trimTrailingWhitespace\\": true,
+  \\"files.insertFinalNewline\\": true
 }
 "
 `;
@@ -234,7 +238,9 @@ exports[`setup tests should setup current version in fresh project 2`] = `
   \\"[json5]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
   \\"[markdown]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
   \\"[mdx]\\": { \\"editor.defaultFormatter\\": \\"esbenp.prettier-vscode\\" },
-  \\"editor.formatOnSave\\": true
+  \\"editor.formatOnSave\\": true,
+  \\"files.trimTrailingWhitespace\\": true,
+  \\"files.insertFinalNewline\\": true
 }
 "
 `;
